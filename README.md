@@ -16,4 +16,28 @@ Python调用TCL，并且把Application设置为TCL的查找路径
 ```
 
 ### 组装TCL命令
+由于TCL命令参数较多，专门写了一个函数用于组装TCL命令
+``` python
+    def build_cmd(*args):
+        cmd = ''
+        for arg in args:
+            cmd = cmd+str(arg)+' '
+        return cmd
+```
+
+### 对常用的TCL命令封装
+一些常用的命令使用频率较高，进行封装，减少冗余代码
+``` python
+    # stc create
+    def stc_create(self,*args):
+        cmd = build_cmd('stc::create', *args)
+        return self.tclsh.eval(cmd)
+    # return: project_name
+    def stc_create_project(self):
+        return self.stc_create('project')
+```
+## SpirentAPI执行过程梳理
+对Spirent测试仪的执行过程进行梳理，对其执行的过程有个大概的了解
+### 确定使用测试仪的匡、槽、口等信息
+
 
